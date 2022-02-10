@@ -1,6 +1,4 @@
-# Blockchain ETH Developement Solidity notes
-
-From course Ethereum Blockchain Developer Bootcamp With Solidity (2022), Ravinder Deol, Thomas Wiesner
+# Blockchain ETH notes
 
 These are notes I take in Notion, and then export in .md format
 
@@ -28,7 +26,7 @@ How can the Blockchain know to send a transaction? Through signatures.
 
 - after we send a transaction (function) we will get 3 parameters. V,R,S
     
-    ![IMG_20211129_230845.jpg](Blockchain%20ETH%20notes%20794cfaa28847490088530f79390c4b10/IMG_20211129_230845.jpg)
+    ![imgTransaction.jpg](Blockchain%20ETH%20notes%20fdf03d51a12a458397baaaa5b8cb28e1/imgTransaction.jpg)
     
 - Hash in short
     
@@ -73,7 +71,7 @@ Every Ethereum node in the network executes the same code, because every node ha
     
     There are different implementations of an Ethereum Node with different programming language. What matter is that they all use the Ethereum Protocol to talk with each other.
     
-    - You can have create a private Ethereum Network with private Nodes.
+    - You can create a private Ethereum Network with private Nodes.
         
         a company, a bank can create their own Eth network and have their own data.
         
@@ -82,7 +80,9 @@ Every Ethereum node in the network executes the same code, because every node ha
         however you start, you start with a Genesis Block, first block written to the network. It comes from a Genesis file, it is the configuration for the Genesis Block, every other blocks are built upon the first one. It is the only thing you need to configure if you want to start your own network.
         
 - Solidity
-    - Resources in the resources folder
+    
+    Resources in the resources folder
+    
     - Variables
         
         all variables get initialized with their default → int 0, strin g empty,...
@@ -101,3 +101,13 @@ Every Ethereum node in the network executes the same code, because every node ha
             - string are internally stored as byte arrays, they are then convert in utf when you need them. you cannot do a lot of stuff, like concatenate, search, replace, ecc. They are expensive, gas fee wise.
         
         Every time you have a string or any other reference type, you have to specify where you store it. “memory” = this variable will be stored in the memory and not in a storage variable.(of course cheaper). The alternative is “storage”.
+        
+    - Send Money
+        
+        adding “payable” to a function means it is going to receive money
+        
+        you can get information, like value of a transaction, by getting the messages properties→ msg.value msg is a Global Object
+        
+        the one who pays the gas fee is always the one who initiated the transaction/function
+        
+        every transaction/function is atomic and can interact with other contracts or owned accounts
