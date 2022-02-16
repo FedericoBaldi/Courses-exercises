@@ -83,6 +83,11 @@ Every Ethereum node in the network executes the same code, because every node ha
     
     Resources in the resources folder
     
+    - General Info
+        - smart contracts get compiled and sent to the blockchain as a transaction.
+        - it’s always good to save the owner of the smart contract, the one that created the contract in the deploy. You can save the address of “msg.sender” in the constructor as the owner.
+        - with “require” we can add controls to our functions. it is like “if else exception”.
+        - if we want to destroy/stop a smart contract, we can create a function that calls “selfdestruct” receiving an address where to send the remaining Eth. Of course we can not really destroy a smart contract because, once mined, the blockchain is immutable. We are just going to remove it from the state, it will not available in the blocks afterwards anymore.
     - Variables
         
         all variables get initialized with their default → int 0, strin g empty,...
@@ -111,13 +116,3 @@ Every Ethereum node in the network executes the same code, because every node ha
         the one who pays the gas fee is always the one who initiated the transaction/function
         
         every transaction/function is atomic and can interact with other contracts or owned accounts
-        
-    - General Info
-        
-        smart contracts get compiled and sent to the blockchain as a transaction.
-        
-        it’s always good to save the owner of the smart contract, the one that created the contract in the deploy. You can save the address of “msg.sender” in the constructor as the owner.
-        
-        with “require” we can add controls to our functions. it is like if else exception.
-        
-        if we want to destroy/stop a smart contract, we can create a function that calls “selfdestruct” receiving an address where to send the remaining Eth. Of course we can not really destroy a smart contract because, once mined, the blockchain is immutable. We are just going to remove it from the state, it will not available in the blocks afterwards anymore.
