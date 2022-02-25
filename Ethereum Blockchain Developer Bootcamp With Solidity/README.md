@@ -16,7 +16,7 @@ Ownership ≠ Possession → Double spending problem, someone can manipulate the
     3. Fasten every kind of transactions
     4. Increase the Capacity and scalability of solutions
 
-BlockChain is like google Docs, it is like a shared document. You dont need to lock access to the ledger of a bank when you are modifying it.
+BlockChain is like Google Docs, it is like a shared document. You don't need to lock access to the ledger of a bank when you are modifying it.
 
 MetaMask extension as a wallet to receive and send ETH
 
@@ -35,10 +35,10 @@ How can the Blockchain know to send a transaction? Through signatures.
     1. it is deterministic, same input = same output.
     2. it is quick to compute.
     3. it is not possible to generate a message from its hash value except by brute force.
-    4. it is uncorrelated, a small change to a message, completely change the output.
+    4. it is uncorrelated, a small change to a message completely changes the output.
     5. it is not possible to find two messages with the same hash value.
 
-A block in the Blockchain have hashes of the previous block which has hashes of the previous block and so on. That's why it is secure, because the blocks are chained together.
+A block in the Blockchain has hashes of the previous block which has hashes of the previous block and so on. That's why it is secure because the blocks are chained together.
 
 Solidity: is an object-oriented, high-level language for implementing smart contracts
 
@@ -49,11 +49,11 @@ Solidity: is an object-oriented, high-level language for implementing smart cont
     - it's a state machine
     - needs transactions to change state
     - can do logic operations
-    - they are turing complete
+    - they are Turing complete
 
 Multiple programming languages for smart contracts: Solidity, Vyper, Serpent, LLL → once code is compiled, they produce EVM bytecode that can run on the blockchain.
 
-Every Ethereum node in the network executes the same code, because every node has a copy of the chain.
+Every Ethereum node in the network executes the same code because every node has a copy of the chain.
 
 - [Remix](https://remix.ethereum.org/) online geditor and compiler
     
@@ -65,32 +65,32 @@ Every Ethereum node in the network executes the same code, because every node ha
         
         Injected Web 3 - by MetaMask use real Ethereum BlockChain or testing public BlockChains → close to real-world scenario, but slow
         
-        Web3 Provider - by using [Ganache](https://trufflesuite.com/ganache), you can have a local BlockChain and debug on it. → fast, medium complicated, more flexible and editable.
+        Web3 Provider - by using [Ganache](https://trufflesuite.com/ganache), you can have a local BlockChain and debug on it. → fast, medium complicated, more flexible, and editable.
         
-- BlockChain Nodes
+- Blockchain Nodes
     
-    There are different implementations of an Ethereum Node with different programming language. What matter is that they all use the Ethereum Protocol to talk with each other.
+    There are different implementations of an Ethereum Node with different programming languages. What matters is that they all use the Ethereum Protocol to talk with each other.
     
     - You can create a private Ethereum Network with private Nodes.
         
         a company, a bank can create their own Eth network and have their own data.
         
-        it is possible to branch from the main network and start with a the data state of the main network and from there on continue with private network data.
+        it is possible to branch from the main network and start with a data state of the main network and from there on continue with private network data.
         
-        however you start, you start with a Genesis Block, first block written to the network. It comes from a Genesis file, it is the configuration for the Genesis Block, every other blocks are built upon the first one. It is the only thing you need to configure if you want to start your own network.
+        however you start, you start with a Genesis Block, the first block written to the network. It comes from a Genesis file, it is the configuration for the Genesis Block, every other blocks are built upon the first one. It is the only thing you need to configure if you want to start your own network.
         
 - Solidity
     
     Resources in the resources folder
     
-    - General Info
+    - Smart Contract states
         - smart contracts get compiled and sent to the blockchain as a transaction.
-        - it’s always good to save the owner of the smart contract, the one that created the contract in the deploy. You can save the address of “msg.sender” in the constructor as the owner.
-        - with “require” we can add controls to our functions. it is like “if else exception”.
-        - if we want to destroy/stop a smart contract, we can create a function that calls “selfdestruct” receiving an address where to send the remaining Eth. Of course we can not really destroy a smart contract because, once mined, the blockchain is immutable. We are just going to remove it from the state, it will not available in the blocks afterwards anymore.
+        - it’s always good to save the owner of the smart contract, the one that created the contract in the deployment. You can save the address of “msg.sender” in the constructor as the owner.
+        - with “require” we can add controls to our functions. it is like an “if-else exception”.
+        - if we want to destroy/stop a smart contract, we can create a function that calls “selfdestruct” receiving an address where to send the remaining Eth. Of course, we can not really destroy a smart contract because once mined, the blockchain is immutable. We are just going to remove it from the state, it will not available in the blocks afterward anymore.
     - Variables
         
-        all variables get initialized with their default → int 0, strin g empty,...
+        all variables get initialized with their default → int 0, string empty,...
         
         any value/balance you will have, it will be in $wei = 10^{-18}Eth$
         
@@ -99,13 +99,26 @@ Every Ethereum node in the network executes the same code, because every node ha
         Keep in mind you have very limited resources. Gas fees are expensive
         
         - Types
-            - bool classic bolleans.
+            - bool classic booleans.
             - uintX or intX where X is 8,16,32,64,128,256. uint by default is 256.
             - fixed point not implemented yet. Good practice → uint numTokens = 10000 uint decimalPoints = 2. Use 2 variables to handle floats, doubles.
             - address, every interaction is address base. Used to transfer ether from smart contracts to addresses or other smart contracts. They already have a lot of built-in functions (transfer, send, call.value, delegatecall, ecc)
-            - string are internally stored as byte arrays, they are then convert in utf when you need them. you cannot do a lot of stuff, like concatenate, search, replace, ecc. They are expensive, gas fee wise.
+            - string is internally stored as byte arrays, they are then converted in utf when you need them. you cannot do a lot of stuff, like concatenate, search, replace, etc. They are expensive, gas fee-wise.
+            - mapping is the corresponding hash map. mapping(int ⇒ int) name; it can be any Solidity type.
+            - to create your how struct it’s easy(very C like):
+            of course, struct consumes fewer gas fees than creating a custom class.
+            
+            ```solidity
+            struct Funder {
+            address addr; 
+            uint amount;
+            }
+            ```
+            
+            - arrays can be fixed or dynamic size. usually is better to use maps because of gas fees.
+            - enums are one way to create a user-defined type in Solidity. They are uint8 internally.
         
-        Every time you have a string or any other reference type, you have to specify where you store it. “memory” = this variable will be stored in the memory and not in a storage variable.(of course cheaper). The alternative is “storage”.
+        Every time you have a string or any other reference type, you have to specify where you store it. “memory” = this variable will be stored in the memory and not in a storage variable(of course cheaper). The alternative is “storage”.
         
     - Send Money
         
