@@ -129,3 +129,15 @@ Every Ethereum node in the network executes the same code because every node has
         the one who pays the gas fee is always the one who initiated the transaction/function
         
         every transaction/function is atomic and can interact with other contracts or owned accounts
+        
+    - Transactions and Errors
+        
+        transactions are atomic, errors are “state reverting”. Errors mean something triggered an handled error like “require”, “assert”, “revert”. They cascade even between smart contracts and multiple functions, except for low level functions (address.send, ....).
+        
+        Catching mechanism are not present in Solidity. Usually you would do it on top of Solidity code.
+        
+        require will return remaining gas. assert consume all gas. assert used to validate invariants and build robust code. require used to validate user input.
+        
+        “automatic” asserts are triggered in unexpected cases (out of bound index, division by 0, byshifting by negative amount, .....)
+        
+        “automatic” requires are triggered in specific cases (your contract receives ether without payable modifier, your contract receives ether at a getter function, ....)
