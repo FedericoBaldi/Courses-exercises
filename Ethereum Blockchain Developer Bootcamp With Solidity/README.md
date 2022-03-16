@@ -55,7 +55,18 @@ Multiple programming languages for smart contracts: Solidity, Vyper, Serpent, LL
 
 Every Ethereum node in the network executes the same code because every node has a copy of the chain.
 
-## [Remix](https://remix.ethereum.org/) online geditor and compiler
+- [Remix](https://remix.ethereum.org/) online geditor and compiler
+    
+    Used to write, compile and Deploy Smart Contracts
+    
+    - to deploy Smart Contracts you can use 3 different options:
+        
+        JavaScript VM - on web testing environment provided by Remix → fast, easy, but not 100% under control and editable.
+        
+        Injected Web 3 - by MetaMask use real Ethereum BlockChain or testing public BlockChains → close to real-world scenario, but slow
+        
+        Web3 Provider - by using [Ganache](https://trufflesuite.com/ganache), you can have a local BlockChain and debug on it. → fast, medium complicated, more flexible, and editable.
+        
 
 Used to write, compile and Deploy Smart Contracts
 
@@ -141,6 +152,15 @@ Resources in the resources folder
     - private: only for the contract
     - external: can be called from other contracts, can be called externally
     - internal: only for the contract and its derived contracts
+    
+     “return” will not work on a real(or test) blockchain, we will use events
+    
+    an Event is used for return values from transactions, it is used externally to trigger functionality or used as a cheap data storage(better than save something inside the contract, gas cost wise). They can allow interaction with the contract.
+    
+    Applications can subscribe and listen to these events through the RPC interface of an Ethereum client.
+    
+    Storing data is extremely expensive ⇒ you can store data off-chain and story only a proof(hash), you can store data in another blockchain such as IPFS or store data in event logs if not necessary.
+    
 - Transactions and Errors
     
     transactions are atomic, errors are “state reverting”. Errors mean something triggered an handled error like “require”, “assert”, “revert”. They cascade even between smart contracts and multiple functions, except for low level functions (address.send, ....).
@@ -153,5 +173,10 @@ Resources in the resources folder
     
     “automatic” requires are triggered in specific cases (your contract receives ether without payable modifier, your contract receives ether at a getter function, ....)
     
-
-##
+- Solidity structure
+    
+    polymorphism, you can inherit a contract or more like “ xContract is yContract, zContract, etc..”. using “super” you can access the base contract.
+    
+    a modifier change the behavior of a function, useful to validate condition centrally, like ownership.
+    
+    import files with contracts “import “filename””, “import * as symbolName from “filename””, “import {symbol1 as alias, symbol2} form “filename”” you can give alias to disambiguate.
