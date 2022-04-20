@@ -24,10 +24,6 @@ MetaMask is connected to Infura - Blockchain as a service provider. They have in
 
 How can the Blockchain know to send a transaction? Through signatures.
 
-- after we send a transaction (function) we will get 3 parameters. V,R,S
-    
-    ![imgTransaction.jpg](Blockchain%20fdf03/imgTransaction.jpg)
-    
 - Hash in short
     
     There are a lot of hash functions, an ideal hash function is:
@@ -55,18 +51,7 @@ Multiple programming languages for smart contracts: Solidity, Vyper, Serpent, LL
 
 Every Ethereum node in the network executes the same code because every node has a copy of the chain.
 
-- [Remix](https://remix.ethereum.org/) online geditor and compiler
-    
-    Used to write, compile and Deploy Smart Contracts
-    
-    - to deploy Smart Contracts you can use 3 different options:
-        
-        JavaScript VM - on web testing environment provided by Remix → fast, easy, but not 100% under control and editable.
-        
-        Injected Web 3 - by MetaMask use real Ethereum BlockChain or testing public BlockChains → close to real-world scenario, but slow
-        
-        Web3 Provider - by using [Ganache](https://trufflesuite.com/ganache), you can have a local BlockChain and debug on it. → fast, medium complicated, more flexible, and editable.
-        
+## [Remix](https://remix.ethereum.org/) online geditor and compiler
 
 Used to write, compile and Deploy Smart Contracts
 
@@ -74,9 +59,17 @@ Used to write, compile and Deploy Smart Contracts
     
     JavaScript VM - on web testing environment provided by Remix → fast, easy, but not 100% under control and editable.
     
-    Injected Web 3 - by MetaMask use real Ethereum BlockChain or testing public BlockChains → close to real-world scenario, but slow
+    Injected Web 3 - by MetaMask use real Ethereum BlockChain or testing public BlockChains → close to a real-world scenario, but slow
     
     Web3 Provider - by using [Ganache](https://trufflesuite.com/ganache), you can have a local BlockChain and debug on it. → fast, medium complicated, more flexible, and editable.
+    
+- Debugging
+    
+    If you go to the compilation tab and compile a smart contract you can click on “Compilation Details”. Here you can find everything related to the contract.
+    
+    Once you interact with a smart contract you can see every transaction detail in the console.
+    
+    It could be useful to activate the plugin “Debugger”, it will enable you to go step by step in your functions. it shows you *after* it happens, not *while* it happens. it shows you gas costs per step.
     
 
 ## Blockchain Nodes
@@ -87,9 +80,9 @@ There are different implementations of an Ethereum Node with different programmi
     
     a company, a bank can create their own Eth network and have their own data.
     
-    it is possible to branch from the main network and start with a data state of the main network and from there on continue with private network data.
+    it is possible to branch from the main network and start with a data state of the main network and from there on continuing with private network data.
     
-    however you start, you start with a Genesis Block, the first block written to the network. It comes from a Genesis file, it is the configuration for the Genesis Block, every other blocks are built upon the first one. It is the only thing you need to configure if you want to start your own network.
+    however you start, you start with a Genesis Block, the first block written to the network. It comes from a Genesis file, it is the configuration for the Genesis Block, every other block are built upon the first one. It is the only thing you need to configure if you want to start your own network.
     
 
 ## Solidity
@@ -114,7 +107,7 @@ Resources in the resources folder
     - Types
         - bool classic booleans.
         - uintX or intX where X is 8,16,32,64,128,256. uint by default is 256.
-        - fixed point not implemented yet. Good practice → uint numTokens = 10000 uint decimalPoints = 2. Use 2 variables to handle floats, doubles.
+        - fixed point not implemented yet. Good practice → uint numTokens = 10000 uint decimalPoints = 2. Use 2 variables to handle floats and doubles.
         - address, every interaction is address base. Used to transfer ether from smart contracts to addresses or other smart contracts. They already have a lot of built-in functions (transfer, send, call.value, delegatecall, ecc)
         - string is internally stored as byte arrays, they are then converted in utf when you need them. you cannot do a lot of stuff, like concatenate, search, replace, etc. They are expensive, gas fee-wise.
         - mapping is the corresponding hash map. mapping(int ⇒ int) name; it can be any Solidity type.
@@ -143,11 +136,11 @@ Resources in the resources folder
     
     every transaction/function is atomic and can interact with other contracts or owned accounts
     
-    - constructor function is called only during deployment
+    - the constructor function is called only during deployment
     - a view function is a "read-only" function, of course, it can call other view and pure functions. 
     a pure function is a function that does not interact with store variables in the contract. why should we declare this kind of function? not writing functions are gas-free, the nodes in the blockchain don’t need to be notified.
-    - fallback function called if the contract receives Ether directly called with non-empty calldata.
-    receive function same as fallback but called when empty calldata
+    - a fallback function called if the contract receives Ether directly called with non-empty call data.
+    receive function same as a fallback but called when empty call data
     - public: can be called internally and externally
     - private: only for the contract
     - external: can be called from other contracts, can be called externally
@@ -155,28 +148,28 @@ Resources in the resources folder
     
      “return” will not work on a real(or test) blockchain, we will use events
     
-    an Event is used for return values from transactions, it is used externally to trigger functionality or used as a cheap data storage(better than save something inside the contract, gas cost wise). They can allow interaction with the contract.
+    an Event is used for return values from transactions, it is used externally to trigger functionality or used as a cheap data storage(better than saving something inside the contract, gas cost wise). They can allow interaction with the contract.
     
     Applications can subscribe and listen to these events through the RPC interface of an Ethereum client.
     
-    Storing data is extremely expensive ⇒ you can store data off-chain and story only a proof(hash), you can store data in another blockchain such as IPFS or store data in event logs if not necessary.
+    Storing data is extremely expensive ⇒ you can store data off-chain and store only a proof(hash), you can store data in another blockchain such as IPFS or store data in event logs if not necessary.
     
 - Transactions and Errors
     
-    transactions are atomic, errors are “state reverting”. Errors mean something triggered an handled error like “require”, “assert”, “revert”. They cascade even between smart contracts and multiple functions, except for low level functions (address.send, ....).
+    transactions are atomic, errors are “state reverting”. Errors mean something triggered a handled error like “require”, “assert”, “revert”. They cascade even between smart contracts and multiple functions, except for low-level functions (address.send, ....).
     
-    Catching mechanism are not present in Solidity. Usually you would do it on top of Solidity code.
+    Caching mechanisms are not present in Solidity. Usually, you would do it on top of Solidity code.
     
-    require will return remaining gas. assert consume all gas. assert used to validate invariants and build robust code. require used to validate user input.
+    require will return the remaining gas. assert consume all gas. assert used to validate invariants and build robust code. require used to validate user input.
     
-    “automatic” asserts are triggered in unexpected cases (out of bound index, division by 0, byshifting by negative amount, .....)
+    “automatic” asserts are triggered in unexpected cases (out of the bound index, division by 0, byshifting by a negative amount, .....)
     
-    “automatic” requires are triggered in specific cases (your contract receives ether without payable modifier, your contract receives ether at a getter function, ....)
+    “automatic” ‘requires’ are triggered in specific cases (your contract receives ether without the payable modifier, your contract receives ether at a getter function, ....)
     
 - Solidity structure
     
     polymorphism, you can inherit a contract or more like “ xContract is yContract, zContract, etc..”. using “super” you can access the base contract.
     
-    a modifier change the behavior of a function, useful to validate condition centrally, like ownership.
+    a modifier changes the behavior of a function, useful to validate condition centrally, like ownership.
     
     import files with contracts “import “filename””, “import * as symbolName from “filename””, “import {symbol1 as alias, symbol2} form “filename”” you can give alias to disambiguate.
